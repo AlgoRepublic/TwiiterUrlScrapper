@@ -26,7 +26,7 @@ class TwitterConfiguration
     collect_tweets = []
     puts "-----------"
     puts "Fetching.........."
-    @client.search("http", result_type: "recent").collect do |tweet|
+    @client.search("http").take(10).collect do |tweet|
       collect_tweets << {"username" => "#{tweet.user.screen_name}", "created_at" => "#{tweet.created_at}", "desription" => "#{tweet.text}", "url" => "#{get_url_of_(tweet)}" }
     end
     collect_tweets
@@ -39,7 +39,7 @@ class TwitterConfiguration
     puts "-----------"
     puts "Fetching.........."
     collect_tweets = []
-    @client.search("http", result_type: "recent").collect do |tweet|
+    @client.search("http").take(10).collect do |tweet|
       collect_tweets << {"username" => "#{tweet.user.screen_name}", "created_at" => "#{tweet.created_at}", "desription" => "#{tweet.text}", "url" => "#{get_url_of_(tweet)}" } if range === "#{tweet.created_at.to_date}" 
     end
     collect_tweets
